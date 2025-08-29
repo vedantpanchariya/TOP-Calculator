@@ -1,9 +1,11 @@
 body{
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100vh;
     align-items: center;
+    
 }
 #number{
     text-align:end;
@@ -15,18 +17,19 @@ body{
     border: 1px solid;
     height: 420px;
     width: 300px;
-    border-radius: 12px;
-    background-color: gold;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: #111827;
     gap: 10px;
 }
 button{
     width: 60px;
     height: 50px;
     border-radius: 20px;
-    border: 1px solid black;
+    background-color: #1f2937;
     font-size: 20px;
-    background-color: black;
-    color: whitesmoke;
+    border: 1px solid #374151;
+    color: #f9fafb;
     margin: 2px;
 }
 #integer{
@@ -46,28 +49,25 @@ button{
     justify-content: end;
 
 }
-#delete{
-    width: 70px;
+#delete,#clear{
+    width: 90px;
 }
-#header{
-    font-size: 40px;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-}
+
 #grid{
     display: flex;
     width: 280px;
     height: 50px;
     align-content: center;
     margin-left: 10px;
-    background-color: white;
+    background: #222826; 
     border-radius: 12px;
-    color: black;
+    color: #9ef01a;
     align-items: end;
     justify-content: end;
     font-size: 25px;
     overflow: hidden;
+    margin-top: 40px;
+    margin-bottom: 10px;
 }
 #wrapper{
     margin: 10px;
@@ -79,6 +79,14 @@ button{
 
 body , #header ,#container{
     user-select: none;
+}
+#grid, button {
+    font-family: 'Orbitron', sans-serif;
+
+}
+
+button:hover{
+    background-color: #374151;
 }
 
 

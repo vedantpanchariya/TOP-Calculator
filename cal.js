@@ -35,10 +35,11 @@ add1.addEventListener('click',()=>{
         change =  true;
     }else{
         num1 = operate(operator,parseFloat(num1),parseFloat(num2));
+        operator = '+';
         grid.textContent= num1;
         num2 = '';
     }
-    grid.textContent = "+";
+    grid.textContent += "+";
     
 });
 const sub1 = document.getElementById('sub1');
@@ -50,10 +51,11 @@ sub1.addEventListener('click',()=>{
         change =  true;
     }else{
         num1 = operate(operator,parseFloat(num1),parseFloat(num2));
+        operator = "-";
         grid.textContent= num1;
         num2 = '';
     }
-    grid.textContent = "-";
+    grid.textContent += "-";
     
     
 });
@@ -65,10 +67,11 @@ multiply.addEventListener('click',()=>{
         change =  true;
     }else{
         num1 = operate(operator,parseFloat(num1),parseFloat(num2));
+        operator = "*";
         grid.textContent= num1;
         num2 = '';
     }
-    grid.textContent = "x";
+    grid.textContent += "x";
     
 });
 const divide = document.getElementById('divide');
@@ -77,12 +80,13 @@ divide.addEventListener('click',()=>{
     if(change == false){
         operator = "/";
         change =  true;
-    }else if(change == true){
+    }else{
         num1 = operate(operator,parseFloat(num1),parseFloat(num2));
+        operator = "/";
         grid.textContent= num1;
         num2 = '';
     }
-    grid.textContent = "/";
+    grid.textContent +="/";
     
 });
 
@@ -95,6 +99,7 @@ zero.addEventListener('click',()=>{
     }else{
         num2 += '0';
     }
+    
 });
 const one = document.getElementById('one');
 one.addEventListener('click',()=>{
