@@ -15,7 +15,7 @@
             ans = num1-num2;
         }else if(operator == "*"){
             ans = num1*num2;
-        }else if(operator == "/"){
+        }else if(operator == "÷"){
             if(num2 == 0){
                 return "NA";
             }else{
@@ -29,7 +29,11 @@
 
     const add1 = document.getElementById('add1');
     add1.addEventListener('click',()=>{
-        console.log("okay");
+        if (/[+\-x÷]$/.test(grid.textContent)) {
+        grid.textContent = grid.textContent.slice(0, -1) + "+";
+        operator = "+";
+        return;
+        }
         if(change == false){
             operator = "+";
             change =  true;
@@ -44,7 +48,11 @@
     });
     const sub1 = document.getElementById('sub1');
     sub1.addEventListener('click',()=>{
-        console.log("okay");
+        if (/[+\-x÷]$/.test(grid.textContent)) {
+        grid.textContent = grid.textContent.slice(0, -1) + "-";
+        operator = "-";
+        return; 
+        }
 
         if(change == false){
             operator = "-";
@@ -61,7 +69,11 @@
     });
     const multiply = document.getElementById('multiply');
     multiply.addEventListener('click',()=>{
-        console.log("okay");
+        if (/[+\-x÷]$/.test(grid.textContent)) {
+        grid.textContent = grid.textContent.slice(0, -1) + "x";
+        operator = "*";
+        return;
+        }
         if(change == false){
             operator = "*";
             change =  true;
@@ -76,17 +88,21 @@
     });
     const divide = document.getElementById('divide');
     divide.addEventListener('click',()=>{
-        console.log("okay");
+        if (/[+\-x÷]$/.test(grid.textContent)) {
+        grid.textContent = grid.textContent.slice(0, -1) + "÷";
+        operator = "÷";
+        return;
+        }
         if(change == false){
-            operator = "/";
+            operator = "÷";
             change =  true;
         }else{
             num1 = operate(operator,parseFloat(num1),parseFloat(num2));
-            operator = "/";
+            operator = "÷";
             grid.textContent= num1;
             num2 = '';
         }
-        grid.textContent +="/";
+        grid.textContent +="÷";
         
     });
 
@@ -235,12 +251,17 @@
             num2 = num2.slice(0,-1);
         }
     
-    grid.textContent = grid.textContent.slice(0, -1);
+        grid.textContent = grid.textContent.slice(0, -1);
+        if (!/[+\-x÷]$/.test(grid.textContent)) {
+            operator = '';
+            change = false;
+            num2 = '';
+        }
     });
 
     const equal = document.getElementById('equal');
     equal.addEventListener('click',()=>{
-        if(operator == 0||num1 == 0||num2==0){
+        if(operator == '' ||num1 == '' || num2=='' ){
             return error;
         }
         let final  = operate(operator,parseFloat(num1),parseFloat(num2));
