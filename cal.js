@@ -44,11 +44,12 @@
         j.addEventListener('click',()=>{
             if(state == false){
                 reset();
+                grid.textContent = "0";
                 if(num1 == ""){
                 if(j.textContent == "-"){
                         num1 = "-";
                         grid.textContent = "-";
-                    }else return;
+                    }return;
             }
                 
             }
