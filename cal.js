@@ -1,11 +1,22 @@
     const grid = document.getElementById('grid');
+    const integer  = document.getElementsByClassName('integer');
+    const operator1 = document.getElementsByClassName('operator');
 
     let operator = '';
     let num1 = '';
     let num2 = '';
-
+    let state = true;
     let change = false;
-
+    
+    function reset(){
+        grid.textContent = "";
+        num1 = "";
+        num2 = "";
+        operator = "";
+        change = false;
+        state = true;
+    }
+    //Operations
     function operate(operator,num1,num2){
         let ans = 0;
         if(isNaN(num1) || isNaN(num2)) return 0;
@@ -13,11 +24,13 @@
             ans = num1+num2;
         }else if(operator == "-"){
             ans = num1-num2;
-        }else if(operator == "*"){
+        }else if(operator == "x"){
             ans = num1*num2;
         }else if(operator == "÷"){
             if(num2 == 0){
-                return "NA";
+                grid.textContent = "NA";
+                state = false;
+                return;
             }else{
                 ans = num1/num2;
             }
@@ -26,196 +39,63 @@
         }
         return ans;
     }
-
-    const add1 = document.getElementById('add1');
-    add1.addEventListener('click',()=>{
-        if (/[+\-x÷]$/.test(grid.textContent)) {
-        grid.textContent = grid.textContent.slice(0, -1) + "+";
-        operator = "+";
-        return;
-        }
-        if(change == false){
-            operator = "+";
-            change =  true;
-        }else{
-            num1 = operate(operator,parseFloat(num1),parseFloat(num2));
-            operator = '+';
-            grid.textContent= num1;
-            num2 = '';
-        }
-        grid.textContent += "+";
-        
-    });
-    const sub1 = document.getElementById('sub1');
-    sub1.addEventListener('click',()=>{
-        if (/[+\-x÷]$/.test(grid.textContent)) {
-        grid.textContent = grid.textContent.slice(0, -1) + "-";
-        operator = "-";
-        return; 
-        }
-
-        if(change == false){
-            operator = "-";
-            change =  true;
-        }else{
-            num1 = operate(operator,parseFloat(num1),parseFloat(num2));
-            operator = "-";
-            grid.textContent= num1;
-            num2 = '';
-        }
-        grid.textContent += "-";
-        
-        
-    });
-    const multiply = document.getElementById('multiply');
-    multiply.addEventListener('click',()=>{
-        if (/[+\-x÷]$/.test(grid.textContent)) {
-        grid.textContent = grid.textContent.slice(0, -1) + "x";
-        operator = "*";
-        return;
-        }
-        if(change == false){
-            operator = "*";
-            change =  true;
-        }else{
-            num1 = operate(operator,parseFloat(num1),parseFloat(num2));
-            operator = "*";
-            grid.textContent= num1;
-            num2 = '';
-        }
-        grid.textContent += "x";
-        
-    });
-    const divide = document.getElementById('divide');
-    divide.addEventListener('click',()=>{
-        if (/[+\-x÷]$/.test(grid.textContent)) {
-        grid.textContent = grid.textContent.slice(0, -1) + "÷";
-        operator = "÷";
-        return;
-        }
-        if(change == false){
-            operator = "÷";
-            change =  true;
-        }else{
-            num1 = operate(operator,parseFloat(num1),parseFloat(num2));
-            operator = "÷";
-            grid.textContent= num1;
-            num2 = '';
-        }
-        grid.textContent +="÷";
+    //For Operators
+    Array.from(operator1).forEach(j=>{
+        j.addEventListener('click',()=>{
+            if(state == false){
+                reset();
+                if(num1 == ""){
+                if(j.textContent == "-"){
+                        num1 = "-";
+                        grid.textContent = "-";
+                    }else return;
+            }
+                
+            }
+            
+            if(num1 == ""){
+                if(j.textContent == "-"){
+                    num1 = "-";
+                    grid.textContent = "-";
+                }else return;
+            }
+            if (/[+\-x÷]$/.test(grid.textContent)) {
+            grid.textContent = grid.textContent.slice(0, -1) + j.textContent;
+            operator = j.textContent;
+            return;
+            }
+            
+            if(change == false){
+                operator = j.textContent;
+                change =  true;
+            }else{
+                num1 = operate(operator,parseFloat(num1),parseFloat(num2));
+                operator = j.textContent;
+                grid.textContent = num1;
+                num2 = '';
+            }
+            grid.textContent +=j.textContent;
+        })
+    })
+    //For Numbers
+    Array.from(integer).forEach(i => {
+        i.addEventListener('click',()=>{
+            if(state == false){
+               reset();
+               grid.textContent = i.textContent;
+               num1 = i.textContent;
+               return;
+            }
+            grid.textContent += i.textContent;
+            if(change == false){
+                num1+= i.textContent;
+            }else{
+                num2+= i.textContent;
+            }
+        });
         
     });
 
-
-    const zero = document.getElementById('zero');
-    zero.addEventListener('click',()=>{
-        grid.textContent += 0; 
-        if(change == false){
-        
-            num1 += '0';
-        }else{
-            num2 += '0';
-        }
-        
-    });
-    const one = document.getElementById('one');
-    one.addEventListener('click',()=>{
-        grid.textContent += 1;
-        if(change == false){
-            num1 += '1';
-        }else{
-            num2 += '1';
-        }
-        
-    });
-    const two = document.getElementById('two');
-    two.addEventListener('click',()=>{
-        grid.textContent += 2;
-        if(change == false){
-            num1 += '2';
-        }else{
-            num2 += '2';
-        }
-        
-        
-    });
-    const three = document.getElementById('three');
-    three.addEventListener('click',()=>{
-        grid.textContent += 3;
-        if(change == false){
-            num1 += '3';
-        }else{
-            num2 += '3';
-        }
-        
-        
-    });
-    const four = document.getElementById('four');
-    four.addEventListener('click',()=>{
-        grid.textContent += 4;
-        if(change == false){
-            num1 += '4';
-        }else{
-            num2 += '4';
-        }
-        
-        
-    });
-    const five = document.getElementById('five');
-    five.addEventListener('click',()=>{
-        grid.textContent += 5;
-        if(change == false){
-            num1 += '5';
-        }else{
-            num2 += '5';
-        }
-        
-        
-    });
-    const six = document.getElementById('six');
-    six.addEventListener('click',()=>{
-        grid.textContent += 6;
-        if(change == false){
-            num1 += '6';
-        }else{
-            num2 += '6';
-        }
-        
-        
-    });
-    const seven = document.getElementById('seven');
-    seven.addEventListener('click',()=>{
-        grid.textContent += 7;
-        if(change == false){
-            num1 += '7';
-        }else{
-            num2 += '7';
-        }
-        
-        
-    });
-    const eight = document.getElementById('eight');
-    eight.addEventListener('click',()=>{
-        grid.textContent += 8;
-        if(change == false){
-            num1 += '8';
-        }else{
-            num2 += '8';
-        }
-        
-        
-    });
-    const nine = document.getElementById('nine');
-    nine.addEventListener('click',()=>{
-        grid.textContent += 9;
-        if(change == false){
-            num1 += '9';
-        }else{
-            num2 += '9';
-        }
-        
-        
-    });
     const dot = document.getElementById('dot');
     dot.addEventListener('click',()=>{
         
@@ -235,16 +115,15 @@
 
     const clear = document.getElementById('clear');
     clear.addEventListener('click',()=>{
-        grid.textContent = "";
-        num1 = '';
-        num2 = '';
-        operator = '';
-        change = false;
-        
+        reset();
     })
 
     const delete1 = document.getElementById("delete");
     delete1.addEventListener("click", () => {
+        if(state == false){
+           reset();
+           return;
+        }
         if(change == false){
             num1 = num1.slice(0,-1);
         }else{
@@ -252,7 +131,7 @@
         }
     
         grid.textContent = grid.textContent.slice(0, -1);
-        if (!/[+\-x÷]$/.test(grid.textContent)) {
+        if (/[+\-x÷]$/.test(grid.textContent)) {
             operator = '';
             change = false;
             num2 = '';
@@ -262,9 +141,12 @@
     const equal = document.getElementById('equal');
     equal.addEventListener('click',()=>{
         if(operator == '' ||num1 == '' || num2=='' ){
-            return error;
+            return;
         }
         let final  = operate(operator,parseFloat(num1),parseFloat(num2));
+        if(state == false){
+            return;
+        }
         grid.textContent = final;
         num1 = final.toString();
         num2 = '';
